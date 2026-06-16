@@ -5,10 +5,10 @@ function AlertBox({ alerts }) {
         style={{
           padding: "10px 14px",
           borderRadius: "8px",
-          border: "1px solid #e0e0e0",
-          background: "#f5f5f5",
+          border: "1px solid #2a2a2a",
+          background: "#1a1a1a",
           fontSize: "13px",
-          color: "#888",
+          color: "#555",
         }}
       >
         ✓ No threats detected
@@ -24,8 +24,8 @@ function AlertBox({ alerts }) {
           style={{
             padding: "10px 14px",
             borderRadius: "8px",
-            border: "1px solid #D85A30",
-            background: "#FAECE7",
+            border: "1px solid #4a1b0c",
+            background: "#1a0a06",
             display: "flex",
             flexDirection: "column",
             gap: "4px",

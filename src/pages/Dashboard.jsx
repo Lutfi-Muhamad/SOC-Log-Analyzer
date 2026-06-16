@@ -3,6 +3,7 @@ import UploadForm from "../components/UploadForm";
 import StatsCard from "../components/StatsCard";
 import AlertBox from "../components/AlertBox";
 import { analyzeLog } from "../services/api";
+import IPTable from "../components/IPTable";
 
 function Dashboard() {
   const [file, setFile] = useState(null);
@@ -18,10 +19,8 @@ function Dashboard() {
 
   async function handleAnalyze() {
     if (!file) return;
-
     setLoading(true);
     setError(null);
-
     try {
       const data = await analyzeLog(file);
       setResult(data);
@@ -35,17 +34,68 @@ function Dashboard() {
   const alerts = result ? result.alerts : [];
 
   return (
-    <div style={{ maxWidth: "700px", margin: "2rem auto", padding: "0 1rem" }}>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h1
-          style={{ fontSize: "20px", fontWeight: "500", marginBottom: "4px" }}
+    <div
+      style={{ maxWidth: "700px", margin: "2rem auto", padding: "0 1.5rem" }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingBottom: "1.25rem",
+          borderBottom: "1px solid #1f1f1f",
+          marginBottom: "1.5rem",
+        }}
+      >
+        <div>
+          <h1 style={{ fontSize: "16px", fontWeight: "500", color: "#e0e0e0" }}>
+            Mini SOC Log Analyzer
+          </h1>
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              fontFamily: "monospace",
+              marginTop: "2px",
+            }}
+          >
+            v1.0.0 · auth.log parser
+          </p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            fontSize: "11px",
+            fontWeight: "500",
+            padding: "3px 10px",
+            borderRadius: "20px",
+            background: "#085041",
+            color: "#5DCAA5",
+            border: "1px solid #1D9E75",
+          }}
         >
-          Mini SOC Log Analyzer
-        </h1>
-        <p style={{ fontSize: "13px", color: "#888" }}>
-          Upload an auth.log file to detect brute force activity
-        </p>
+          <span
+            style={{
+              width: "7px",
+              height: "7px",
+              borderRadius: "50%",
+              background: "#5DCAA5",
+              display: "inline-block",
+              animation: "pulse 1.8s ease-in-out infinite",
+            }}
+          />
+          System online
+        </div>
       </div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+      `}</style>
 
       <UploadForm onFileSelect={handleFileSelect} />
 
@@ -53,16 +103,17 @@ function Dashboard() {
         onClick={handleAnalyze}
         disabled={!file || loading}
         style={{
-          marginTop: "12px",
+          marginTop: "10px",
           width: "100%",
           padding: "10px",
           borderRadius: "8px",
-          border: "none",
-          background: !file || loading ? "#ccc" : "#0F6E56",
-          color: !file || loading ? "#888" : "#9FE1CB",
+          border: "1px solid #2a2a2a",
+          background: !file || loading ? "#1a1a1a" : "#0F6E56",
+          color: !file || loading ? "#444" : "#9FE1CB",
           fontSize: "14px",
           fontWeight: "500",
           cursor: !file || loading ? "not-allowed" : "pointer",
+          transition: "background 0.15s",
         }}
       >
         {loading ? "Analyzing..." : "Analyze log"}
@@ -105,7 +156,7 @@ function Dashboard() {
           <p
             style={{
               fontSize: "12px",
-              color: "#888",
+              color: "#444",
               marginBottom: "8px",
               textTransform: "uppercase",
               letterSpacing: "0.06em",
@@ -114,6 +165,29 @@ function Dashboard() {
             Alerts
           </p>
           <AlertBox alerts={alerts} />
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              marginBottom: "8px",
+              marginTop: "1.5rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Top IPs
+          </p>
+          <div
+            style={{
+              background: "#1a1a1a",
+              border: "1px solid #2a2a2a",
+              borderRadius: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <IPTable topIPs={result.top_ips} />
+          </div>
         </div>
       )}
     </div>

@@ -2,10 +2,10 @@ function StatsCard({ label, value, color }) {
   return (
     <div
       style={{
-        background: "#f5f5f5",
+        background: "#1a1a1a",
         borderRadius: "10px",
         padding: "1rem 1.25rem",
-        border: "1px solid #e0e0e0",
+        border: "1px solid #2a2a2a",
       }}
     >
       <p
@@ -13,7 +13,7 @@ function StatsCard({ label, value, color }) {
           fontSize: "11px",
           textTransform: "uppercase",
           letterSpacing: "0.06em",
-          color: "#888",
+          color: "#555",
           marginBottom: "6px",
         }}
       >
@@ -24,7 +24,7 @@ function StatsCard({ label, value, color }) {
           fontSize: "28px",
           fontWeight: "500",
           fontFamily: "monospace",
-          color: color || "#111",
+          color: color || "#e0e0e0",
           margin: 0,
         }}
       >

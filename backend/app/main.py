@@ -32,4 +32,5 @@ async def analyze_log(file: UploadFile = File(...)):
         "unique_ip": result["unique_ip"],
         "top_ip": result["top_ip"],
         "alerts": result["brute_force"],
+        "top_ips": result["all_ips"],
     }

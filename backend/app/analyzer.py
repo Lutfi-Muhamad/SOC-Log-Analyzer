@@ -19,12 +19,14 @@ def analyze(entries: list[dict]) -> dict:
         for ip, count in ip_counts.items()
         if count > BRUTE_FORCE_THRESHOLD
     ]
-
     brute_force_ips.sort(key=lambda x: x["count"], reverse=True)
+
+    all_ips = [{"ip": ip, "count": count} for ip, count in ip_counts.most_common()]
 
     return {
         "failed_login": total_failed,
         "unique_ip": unique_ips,
         "top_ip": top_ip_address,
         "brute_force": brute_force_ips,
+        "all_ips": all_ips,
     }

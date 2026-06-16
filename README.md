@@ -1,45 +1,91 @@
-# Mini SOC Log Analyzer V1 - Still in early development
+# Mini SOC Log Analyzer
 
-A full-stack web application for analyzing SSH auth logs and detecting brute force attacks.
+A full-stack web application for analyzing SSH authentication logs and detecting brute force attacks in real time.
 
-Built as a portfolio project for SOC Analyst skill development.
+Built as a hands-on portfolio project for SOC Analyst skill development.
 
-## Features
+🔗 **Live demo:** https://soc-log-analyzer-rosy.vercel.app
 
-- Upload auth.log files via drag and drop
-- Parse failed login attempts using regex
-- Detect brute force activity (IP with >5 failed attempts)
-- Display statistics: total entries, failed logins, unique IPs
-- Show alerts with suspicious IP addresses
+---
 
-## Tech Stack
+## What it does
 
-**Frontend:** React, Vite  
-**Backend:** Python, FastAPI  
-**Concepts:** Log analysis, brute force detection, REST API, security monitoring
+Upload an `auth.log` file from a Linux SSH server and the system will:
 
-## Project Structure
+- Count total log entries and failed login attempts
+- Identify unique source IP addresses
+- Flag IPs exceeding the brute force threshold (>5 failed attempts)
+- Display severity levels per IP: High risk, Suspicious, Normal
 
+---
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React, Vite |
+| Backend | Python, FastAPI |
+| Hosting | Vercel (frontend), Render (backend) |
+
+---
+
+## Detection logic
+
+The parser scans each log line for known failure patterns:
+Failed password
+
+authentication failure
+
+Invalid user
+
+failed login
+
+Any IP address triggering more than 5 matches is flagged as a brute force suspect. This simulates threshold-based alerting used in real SIEM platforms like Splunk and Wazuh.
+
+---
+
+## Project structure
 mini-soc-log-analyzer/
 
-├── frontend/ React app
+├── src/
 
-├── backend/ FastAPI app
+│   ├── components/
 
-│ ├── app/
+│   │   ├── UploadForm.jsx
 
-│ │ ├── main.py
+│   │   ├── StatsCard.jsx
 
-│ │ ├── parser.py
+│   │   ├── AlertBox.jsx
 
-│ │ └── analyzer.py
+│   │   └── IPTable.jsx
 
-│ └── sample_logs/
+│   ├── pages/
 
-## Running Locally
+│   │   └── Dashboard.jsx
+
+│   └── services/
+
+│       └── api.js
+
+└── backend/
+
+├── app/
+
+│   ├── main.py
+
+│   ├── parser.py
+
+│   └── analyzer.py
+
+└── sample_logs/
+
+└── auth.log
+
+---
+
+## Running locally
 
 **Backend:**
-
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -47,12 +93,31 @@ uvicorn app.main:app --reload
 ```
 
 **Frontend:**
-
 ```bash
 npm install
 npm run dev
 ```
 
-## Sample Log
+---
+
+## Sample log
 
 A sample `auth.log` is included in `backend/sample_logs/` for testing.
+It contains realistic SSH log entries across multiple scenarios:
+
+- Brute force via `Failed password`
+- Brute force via `authentication failure`
+- Successful login (not flagged)
+- `Invalid user` attempts
+- Low-volume failed attempts (below threshold)
+
+---
+
+## Roadmap
+
+- [ ] Analysis history with localStorage
+- [ ] Custom rule editor (adjustable threshold + patterns)
+- [ ] IOC checker — manual IP lookup
+- [ ] Severity scoring per session
+- [ ] Export report as PDF
+- [ ] Loading Spinner API Health Checker

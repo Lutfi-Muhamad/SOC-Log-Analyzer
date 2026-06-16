@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://soc-log-analyzer-lpz1.onrender.com";
 
 export async function uploadLog(file) {
   const formData = new FormData();

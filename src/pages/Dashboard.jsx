@@ -4,6 +4,10 @@ import StatsCard from "../components/StatsCard";
 import AlertBox from "../components/AlertBox";
 import { analyzeLog } from "../services/api";
 import IPTable from "../components/IPTable";
+import CredentialStuffingBox from "../components/CredentialStuffingBox";
+import AcceptedAfterFailedBox from "../components/AcceptedAfterFailedBox";
+import PrivEscBox from "../components/PrivEscBox";
+import PortScanBox from "../components/PortScanBox";
 
 function Dashboard() {
   const [file, setFile] = useState(null);
@@ -62,41 +66,22 @@ function Dashboard() {
             v1.0.0 · auth.log parser
           </p>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "11px",
-            fontWeight: "500",
-            padding: "3px 10px",
-            borderRadius: "20px",
-            background: "#085041",
-            color: "#5DCAA5",
-            border: "1px solid #1D9E75",
-          }}
-        >
-          <span
+        <div style={{ marginBottom: "1.5rem" }}>
+          <h1
             style={{
-              width: "7px",
-              height: "7px",
-              borderRadius: "50%",
-              background: "#5DCAA5",
-              display: "inline-block",
-              animation: "pulse 1.8s ease-in-out infinite",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#e0e0e0",
+              marginBottom: "4px",
             }}
-          />
-          System online
+          >
+            Dashboard
+          </h1>
+          <p style={{ fontSize: "12px", color: "#444" }}>
+            Upload and analyze SSH auth logs
+          </p>
         </div>
       </div>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-      `}</style>
-
       <UploadForm onFileSelect={handleFileSelect} />
 
       <button
@@ -165,6 +150,62 @@ function Dashboard() {
             Alerts
           </p>
           <AlertBox alerts={alerts} />
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              marginBottom: "8px",
+              marginTop: "1.5rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Credential Stuffing
+          </p>
+          <CredentialStuffingBox suspects={result.credential_stuffing} />
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              marginBottom: "8px",
+              marginTop: "1.5rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Accepted After Failed
+          </p>
+          <AcceptedAfterFailedBox suspects={result.accepted_after_failed} />
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              marginBottom: "8px",
+              marginTop: "1.5rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Privilege Escalation
+          </p>
+          <PrivEscBox suspects={result.privilege_escalation} />
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#444",
+              marginBottom: "8px",
+              marginTop: "1.5rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Port Scanning
+          </p>
+          <PortScanBox suspects={result.port_scanning} />
 
           <p
             style={{

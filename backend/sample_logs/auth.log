@@ -23,3 +23,26 @@ Jun 16 10:04:11 server sshd[1005]: authentication failure for root from 203.0.11
 Jun 16 10:05:00 server sshd[1006]: Invalid user deploy from 198.51.100.4 port 22
 Jun 16 10:05:02 server sshd[1006]: Invalid user deploy from 198.51.100.4 port 22
 Jun 16 10:06:00 server sshd[1007]: Accepted password for lutfi from 172.16.0.1 port 22 ssh2
+Jun 16 10:10:01 server sshd[2001]: Failed password for admin from 45.33.32.156 port 22 ssh2
+Jun 16 10:10:03 server sshd[2002]: Failed password for root from 45.33.32.156 port 22 ssh2
+Jun 16 10:10:05 server sshd[2003]: Failed password for ubuntu from 45.33.32.156 port 22 ssh2
+Jun 16 10:10:07 server sshd[2004]: Failed password for deploy from 45.33.32.156 port 22 ssh2
+Jun 16 10:10:09 server sshd[2005]: Failed password for git from 45.33.32.156 port 22 ssh2
+Jun 16 10:10:11 server sshd[2006]: Failed password for test from 45.33.32.156 port 22 ssh2
+Jun 16 10:15:01 server sshd[3001]: Failed password for root from 185.220.101.45 port 22 ssh2
+Jun 16 10:15:03 server sshd[3002]: Failed password for root from 185.220.101.45 port 22 ssh2
+Jun 16 10:15:05 server sshd[3003]: Failed password for root from 185.220.101.45 port 22 ssh2
+Jun 16 10:15:08 server sshd[3004]: Accepted password for root from 185.220.101.45 port 22 ssh2
+Jun 16 10:20:01 server sudo: lutfi : TTY=pts/0 ; PWD=/home/lutfi ; USER=root ; COMMAND=/bin/bash
+Jun 16 10:20:05 server sudo: lutfi : 3 incorrect password attempts ; TTY=pts/0 ; USER=root ; COMMAND=/bin/bash
+Jun 16 10:20:10 server su[4001]: FAILED su for root by www-data
+Jun 16 10:20:15 server sudo: deploy : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/deploy ; USER=root
+Jun 16 10:20:20 server sudo: www-data : user NOT in sudoers ; TTY=pts/0 ; PWD=/var/www ; USER=root
+Jun 16 10:25:01 server sshd[5001]: Did not receive identification string from 77.88.55.80 port 3389
+Jun 16 10:25:02 server sshd[5002]: Did not receive identification string from 77.88.55.80 port 8080
+Jun 16 10:25:03 server sshd[5003]: Did not receive identification string from 77.88.55.80 port 443
+Jun 16 10:25:04 server sshd[5004]: Did not receive identification string from 77.88.55.80 port 21
+Jun 16 10:25:05 server sshd[5005]: Did not receive identification string from 77.88.55.80 port 25
+Jun 16 10:25:06 server sshd[5006]: Connection closed by 77.88.55.80 port 8443
+Jun 16 10:25:07 server sshd[5007]: Connection closed by 77.88.55.80 port 9090
+Jun 16 10:25:08 server sshd[5008]: Bad protocol version identification from 77.88.55.80 port 1433

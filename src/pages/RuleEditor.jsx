@@ -1,20 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateRules, getRules } from "../services/api";
 
-useEffect(() => {
-  async function loadRules() {
-    try {
-      const data = await getRules();
-      setThreshold(data.brute_force_threshold);
-      setCsThreshold(data.credential_stuffing_threshold);
-      setPatterns(data.fail_patterns);
-    } catch (err) {
-      console.log("Could not load rules from backend");
-    }
-  }
-  loadRules();
-}, []);
-
 const DEFAULT_PATTERNS = [
   "Failed password",
   "authentication failure",
@@ -29,6 +15,20 @@ function RuleEditor() {
   const [csThreshold, setCsThreshold] = useState(3);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function loadRules() {
+      try {
+        const data = await getRules();
+        setThreshold(data.brute_force_threshold);
+        setCsThreshold(data.credential_stuffing_threshold);
+        setPatterns(data.fail_patterns);
+      } catch (err) {
+        console.log("Could not load rules from backend");
+      }
+    }
+    loadRules();
+  }, []);
 
   function handleAddPattern() {
     const trimmed = newPattern.trim();

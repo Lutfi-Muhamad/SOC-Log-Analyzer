@@ -1,5 +1,5 @@
-// const BASE_URL = "https://soc-log-analyzer-lpz1.onrender.com"; // production deployment
-const BASE_URL = "http://localhost:8000"; // local development
+const BASE_URL = "https://soc-log-analyzer-lpz1.onrender.com"; // production deployment
+// const BASE_URL = "http://localhost:8000"; // local development
 
 export async function uploadLog(file) {
   const formData = new FormData();

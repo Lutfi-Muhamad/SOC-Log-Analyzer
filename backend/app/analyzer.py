@@ -32,6 +32,15 @@ def analyze(
     accepted_after_failed = detect_accepted_after_failed(entries)
     privilege_escalation = detect_privilege_escalation(entries)
     port_scanning = detect_port_scanning(entries)
+    
+    severity = calculate_severity({
+         "brute_force": brute_force_ips,
+        "credential_stuffing": credential_stuffing,
+        "accepted_after_failed": accepted_after_failed,
+        "privilege_escalation": privilege_escalation,
+        "port_scanning": port_scanning,
+    })
+
 
     return {
         "failed_login": total_failed,
@@ -43,6 +52,7 @@ def analyze(
         "accepted_after_failed": accepted_after_failed,
         "privilege_escalation": privilege_escalation,
         "port_scanning": port_scanning,
+        "severity": severity,
     }
 
 
@@ -151,3 +161,35 @@ def detect_port_scanning(entries: list[dict]) -> list[dict]:
 
     suspects.sort(key=lambda x: x["probe_count"], reverse=True)
     return suspects
+
+
+def calculate_severity(result: dict) -> dict:
+    score = 0
+
+    score += len(result["brute_force"]) * 30
+    score += len(result["credential_stuffing"]) * 25
+    score += len(result["accepted_after_failed"]) * 50
+    score += len(result["privilege_escalation"]) * 40
+    score += len(result["port_scanning"]) * 20
+
+    if score == 0:
+        level = "Clean"
+        color = "#1D9E75"
+    elif score <= 40:
+        level = "Low"
+        color = "#1D9E75"
+    elif score <= 80:
+        level = "Medium"
+        color = "#BA7517"
+    elif score <= 150:
+        level = "High"
+        color = "#D85A30"
+    else:
+        level = "Critical"
+        color = "#E24B4A"
+
+    return {
+        "score": score,
+        "level": level,
+        "color": color,
+    }

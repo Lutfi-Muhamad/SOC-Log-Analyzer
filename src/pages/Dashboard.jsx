@@ -8,6 +8,7 @@ import CredentialStuffingBox from "../components/CredentialStuffingBox";
 import AcceptedAfterFailedBox from "../components/AcceptedAfterFailedBox";
 import PrivEscBox from "../components/PrivEscBox";
 import PortScanBox from "../components/PortScanBox";
+import SeverityBadge from "../components/SeverityBadge";
 
 function Dashboard() {
   const [file, setFile] = useState(null);
@@ -112,6 +113,7 @@ function Dashboard() {
 
       {result && (
         <div style={{ marginTop: "2rem" }}>
+          <SeverityBadge severity={result.severity} />
           <div
             style={{
               display: "grid",

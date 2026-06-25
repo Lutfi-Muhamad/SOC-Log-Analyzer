@@ -76,4 +76,5 @@ async def analyze_log(file: UploadFile = File(...)):
         "accepted_after_failed": result["accepted_after_failed"],
         "privilege_escalation": result["privilege_escalation"],
         "port_scanning": result["port_scanning"],
+        "severity": result["severity"],
     }

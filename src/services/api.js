@@ -1,5 +1,5 @@
-const BASE_URL = "https://soc-log-analyzer-lpz1.onrender.com"; // production deployment
-// const BASE_URL = "http://localhost:8000"; // local development
+// const BASE_URL = "https://soc-log-analyzer-lpz1.onrender.com"; // production deployment
+const BASE_URL = "http://localhost:8000"; // local development
 
 export async function uploadLog(file) {
   const formData = new FormData();
@@ -53,4 +53,15 @@ export async function getRules() {
     throw new Error("Failed to fetch rules");
   }
   return response.json();
+}
+
+export async function checkIOC(ip) {
+  const response = await fetch(`${BASE_URL}/ioc/ip/${encodeURIComponent(ip)}`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.detail || "IOC lookup failed");
+  }
+
+  return data;
 }

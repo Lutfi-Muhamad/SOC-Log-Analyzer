@@ -115,8 +115,8 @@ It contains realistic SSH log entries across multiple scenarios:
 
 ## Roadmap
 
-- [ ] Analysis history with localStorage
-- [ ] Custom rule editor (adjustable threshold + patterns)
+- [✔️] Analysis history with localStorage
+- [✔️] Custom rule editor (adjustable threshold + patterns)
 - [ ] IOC checker — manual IP lookup
 - [ ] Severity scoring per session
 - [ ] Export report as PDF

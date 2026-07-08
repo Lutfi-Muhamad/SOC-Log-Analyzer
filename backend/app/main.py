@@ -2,9 +2,11 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.parser import parse_log
+from ioc_router import router as ioc_router
 from app.analyzer import analyze
 
 app = FastAPI()
+app.include_router(ioc_router)
 
 app.add_middleware(
     CORSMiddleware,

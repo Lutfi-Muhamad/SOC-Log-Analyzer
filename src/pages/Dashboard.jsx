@@ -9,17 +9,30 @@ import AcceptedAfterFailedBox from "../components/AcceptedAfterFailedBox";
 import PrivEscBox from "../components/PrivEscBox";
 import PortScanBox from "../components/PortScanBox";
 import SeverityBadge from "../components/SeverityBadge";
+import HistoryPanel from "../components/HistoryPanel";
+import { useAnalysisHistory } from "../hooks/useAnalysisHistory";
 
 function Dashboard() {
   const [file, setFile] = useState(null);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeHistoryId, setActiveHistoryId] = useState(null);
+
+  const {
+    history,
+    addEntry,
+    deleteEntry,
+    clearHistory,
+    exportHistory,
+    storageWarning,
+  } = useAnalysisHistory();
 
   function handleFileSelect(selectedFile) {
     setFile(selectedFile);
     setResult(null);
     setError(null);
+    setActiveHistoryId(null);
   }
 
   async function handleAnalyze() {
@@ -29,10 +42,25 @@ function Dashboard() {
     try {
       const data = await analyzeLog(file);
       setResult(data);
+      const entry = addEntry(file.name, data);
+      setActiveHistoryId(entry.id);
     } catch (err) {
       setError("Failed to analyze log. Make sure the backend is running.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  function handleHistorySelect(entry) {
+    setResult(entry.result);
+    setActiveHistoryId(entry.id);
+    setError(null);
+  }
+
+  function handleHistoryDelete(id) {
+    deleteEntry(id);
+    if (id === activeHistoryId) {
+      setActiveHistoryId(null);
     }
   }
 
@@ -110,6 +138,18 @@ function Dashboard() {
           {error}
         </p>
       )}
+
+      <div style={{ marginTop: "1.5rem" }}>
+        <HistoryPanel
+          history={history}
+          activeId={activeHistoryId}
+          onSelect={handleHistorySelect}
+          onDelete={handleHistoryDelete}
+          onClear={clearHistory}
+          onExport={exportHistory}
+          storageWarning={storageWarning}
+        />
+      </div>
 
       {result && (
         <div style={{ marginTop: "2rem" }}>
